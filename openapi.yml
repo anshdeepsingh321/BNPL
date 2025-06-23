@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: BNPL Credit System
+  version: 1.0.0
+paths:
+  /clients:
+    post:
+      summary: Register a new client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientResponse'
