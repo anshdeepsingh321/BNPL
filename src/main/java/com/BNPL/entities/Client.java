@@ -18,12 +18,28 @@ public class Client {
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private CreditLine creditLine;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public LocalDate getBirthDate() { return birthDate; }
-    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
-    public CreditLine getCreditLine() { return creditLine; }
-    public void setCreditLine(CreditLine creditLine) { this.creditLine = creditLine; }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+    public CreditLine getCreditLine() {
+        return creditLine;
+    }
+    public void setCreditLine(CreditLine creditLine) {
+        this.creditLine = creditLine;
+    }
 }

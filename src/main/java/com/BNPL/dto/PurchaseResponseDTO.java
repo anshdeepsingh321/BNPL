@@ -1,3 +1,3 @@
 package com.BNPL.dto;
 
-public record PurchaseResponseDTO(Long buyingId) {}
+public record PurchaseResponseDTO (Long buyingId) {}

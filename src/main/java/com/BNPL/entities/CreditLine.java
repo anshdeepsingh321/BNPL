@@ -15,12 +15,28 @@ public class CreditLine {
     @OneToOne
     private Client client;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
-    public double getAvailable() { return available; }
-    public void setAvailable(double available) { this.available = available; }
-    public Client getClient() { return client; }
-    public void setClient(Client client) { this.client = client; }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public double getAmount() {
+        return amount;
+    }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+    public double getAvailable() {
+        return available;
+    }
+    public void setAvailable(double available) {
+        this.available = available;
+    }
+    public Client getClient() {
+        return client;
+    }
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }

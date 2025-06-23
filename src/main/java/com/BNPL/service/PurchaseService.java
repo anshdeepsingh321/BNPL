@@ -10,6 +10,8 @@ import com.BNPL.repository.ClientRepository;
 import com.BNPL.repository.CreditLineRepository;
 import com.BNPL.repository.InstallmentRepository;
 import com.BNPL.repository.LoanRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class PurchaseService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PurchaseService.class);
 
     private final ClientRepository clientRepo;
     private final CreditLineRepository creditRepo;
@@ -40,8 +44,10 @@ public class PurchaseService {
         CreditLine credit = Optional.of(creditRepo.findByClientId(Math.toIntExact(client.getId())))
                 .orElseThrow(() -> new IllegalArgumentException("No credit line found"));
 
-        if (request.amount() > credit.getAvailable())
+        if (request.amount() > credit.getAvailable()) {
+            logger.error("Insufficient credit line");
             throw new IllegalArgumentException("Insufficient credit line");
+        }
 
         String scheme = assignScheme(client);
         double rate = scheme.equals("Scheme 1") ? 0.13 : 0.16;
@@ -57,11 +63,17 @@ public class PurchaseService {
         loan.setScheme(scheme);
         loan = loanRepo.save(loan);
 
-        List<Installment> installments = InstallmentCalculator.calculate(total, loan.getPurchaseDate(), loan.getId());
+        logger.info("Loan information saved");
+
+        List < Installment > installments = InstallmentCalculator.calculate(total, loan.getPurchaseDate(), loan.getId());
         installmentRepo.saveAll(installments);
+
+        logger.info("Installment information saved");
 
         credit.setAvailable(credit.getAvailable() - request.amount());
         creditRepo.save(credit);
+
+        logger.info("Credit limit updated after purchase");
 
         return new PurchaseResponseDTO(loan.getId());
     }
